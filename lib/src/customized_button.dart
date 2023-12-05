@@ -5,8 +5,9 @@ class CustomizedButton extends StatelessWidget {
   final String text;
   final double fontsize;
   final double? width;
-  final double pad;
+  final EdgeInsets pad;
   final double borderRadius;
+  final double? elevation;
   final FontWeight fontWeight;
   final Color fontColor;
   final Color backgroundColor;
@@ -14,11 +15,13 @@ class CustomizedButton extends StatelessWidget {
   final bool enableBorder;
   final bool isLoading;
   final Widget? widget;
+  final TextStyle? fontStyle;
+  final Color overlayColor;
   const CustomizedButton({
     Key? key,
     required this.onTap,
-    required this.text,
-    this.pad = 10,
+    this.text = '',
+    this.pad = EdgeInsets.zero,
     this.fontsize = 14,
     this.fontWeight = FontWeight.w500,
     this.fontColor = Colors.white,
@@ -29,6 +32,9 @@ class CustomizedButton extends StatelessWidget {
     this.borderColor = Colors.black,
     this.isLoading = false,
     this.widget,
+    this.elevation,
+    this.fontStyle,
+    this.overlayColor = Colors.black12,
   }) : super(key: key);
 
   @override
@@ -36,6 +42,9 @@ class CustomizedButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () => onTap(),
       style: ButtonStyle(
+        overlayColor: MaterialStateProperty.all<Color>(overlayColor),
+        padding: MaterialStatePropertyAll(pad),
+        elevation: MaterialStateProperty.all(elevation),
         backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
@@ -53,20 +62,21 @@ class CustomizedButton extends StatelessWidget {
                 color: Colors.white,
               ),
             )
-          : Container(
-              width: width,
-              alignment: Alignment.center,
-              padding: EdgeInsets.all(pad),
-              child: widget ??
-                  Text(
-                    text,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: fontColor,
-                        fontSize: fontsize,
-                        fontWeight: fontWeight),
-                  ),
-            ),
+          : widget ??
+              Container(
+                width: width,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: fontStyle ??
+                      TextStyle(
+                          color: fontColor,
+                          fontSize: fontsize,
+                          fontWeight: fontWeight),
+                ),
+              ),
     );
   }
 }

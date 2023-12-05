@@ -1,7 +1,7 @@
 name: customize_button
 description: Customized buttons for asyncronous onPressed function. Supports seamless loading functionality by just adding is loading and easily customize background color, font color, font style, etc.
-version: 0.0.1
-homepage: "https://github.com/chaitanyawadaskar/customized_button"
+version: 0.0.5
+homepage: https://github.com/chaitanyawadaskar/customized_button
 
 environment:
   sdk: ">=2.18.5 <3.0.0"
